@@ -29,6 +29,7 @@
 - 用户登录
 - 身份验证
 - 验证码
+- 多文件上传
 
 ## 路由
 
@@ -46,7 +47,7 @@
 
 - article 文章集合
 
-```json
+```sh
 user : ObjectId  //创建用户
 title: String //标题
 content: String // 文章内容
@@ -57,7 +58,7 @@ tags: Array // 文章的标签
 
 - users 用户个人信息集合
 
-```json
+```sh
 name: String  // 用户全名
 email: String  // 用户邮箱
 hashed_password:  String  // 经过哈希加密过的用户密码
@@ -72,4 +73,91 @@ authToken:  String  // 用户真名
 ```js
 require("dotenv").config();
 console.log(process.env); // remove this after you've confirmed it working
+```
+
+### 文件上传
+
+#### 单文件上传
+
+```js
+//dest设置上传原始文件的路径，single要与file的name保持一致
+app.post(
+  "/upload",
+  multer({ dest: "./public/upload_tmp/" }).single("file"),
+  function (req, res, next) {
+    if (req.file.length === 0) {
+      res.render("error", { message: "上传文件不能为空！" });
+      return;
+    } else {
+      let file = req.file;
+      //存储上传对象信息
+      let fileInfo = {};
+      //修改名字，第一个参数为旧路径，第二个参数为新路径（注意：旧路径要和上面的dest保持一致）
+      fs.renameSync(
+        "./public/upload_tmp/" + file.filename,
+        "./public/images/" + file.originalname
+      );
+      // 获取文件信息
+      fileInfo.mimetype = file.mimetype;
+      fileInfo.originalname = file.originalname;
+      fileInfo.size = file.size;
+      fileInfo.path = file.path;
+      //设置响应类型、编码
+      res.set({
+        "content-type": "application/json; charset=utf-8",
+      });
+      res.end("成功");
+    }
+  }
+);
+```
+
+```js
+//与单文件相比唯一的不同就是不再使用.single
+//改为.array('file', 10)，其中的file和.single的参数一样，10为上传数目的最大限制
+app.post(
+  "/upload",
+  multer({ dest: "./public/upload_tmp/" }).array("file", 10),
+  function (req, res, next) {
+    let files = req.files;
+    if (files.length === 0) {
+      res.render("error", { message: "上传文件不能为空！" });
+      return;
+    } else {
+      let fileInfos = [];
+      for (var i in files) {
+        let file = files[i];
+        let fileInfo = {};
+
+        fs.renameSync(
+          "./public/upload_tmp/" + file.filename,
+          "./public/images/" + file.originalname
+        );
+
+        //获取文件基本信息
+        fileInfo.mimetype = file.mimetype;
+        fileInfo.originalname = file.originalname;
+        fileInfo.size = file.size;
+        fileInfo.path = file.path;
+
+        fileInfos.push(fileInfo);
+      }
+      // 设置响应类型、编码
+      res.set({
+        "content-type": "application/json; charset=utf-8",
+      });
+      res.end("成功");
+    }
+  }
+);
+```
+
+前台 `html` 页面设置
+
+```html
+<form action="/upload" method="post" enctype="multipart/form-data">
+  <!-- multiple允许多文件上传，单文件可忽略-->
+  <input id="files" type="file" name="file" multiple />
+  <input type="submit" value="上传" />
+</form>
 ```

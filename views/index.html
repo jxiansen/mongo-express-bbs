@@ -12,116 +12,300 @@
 <body>
 
   <div>
-    <nav class="bg-white dark:bg-gray-800  shadow ">
-      <div class="max-w-7xl mx-auto px-8">
-        <div class="flex items-center justify-between h-16">
-          <div class=" flex items-center">
-            <a class="flex-shrink-0" href="/">
-              <img class="h-8 w-8" src="/img/rocket.svg" alt="Workflow" />
-            </a>
-            <div class="hidden md:block">
-              <div class="ml-10 flex items-baseline space-x-4">
-                <a class="text-gray-300  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  href="/login">
-                  login
-                </a>
-                <a class="text-gray-300  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  href="/#">
-                  new
-                </a>
-                <a class="text-gray-800 dark:text-white  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  href="/register">
-                  register
-                </a>
+    <div id="navigation">
+      <nav class="bg-white dark:bg-gray-800  shadow ">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="flex items-center justify-between h-16">
+            <div class=" flex items-center">
+              <a class="flex-shrink-0" href="/">
+                <img class="h-8 w-8" src="/img/rocket.svg" alt="Workflow" />
+              </a>
+              <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                  <a class="text-gray-300  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    href="/login">
+                    login
+                  </a>
+                  <a class="text-gray-300  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    href="/#">
+                    new
+                  </a>
+                  <a class="text-gray-800 dark:text-white  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    href="/register">
+                    register
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="block">
-            <div class="ml-4 flex items-center md:ml-6">
-              <div class="ml-3 relative">
-                <div class="relative inline-block text-left">
-                  <div>
-                    <button type="button"
-                      class="  flex items-center justify-center w-full rounded-md  px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
-                      id="options-menu">
-                      <svg width="20" fill="currentColor" height="20" class="text-gray-800" viewBox="0 0 1792 1792"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M1523 1339q-22-155-87.5-257.5t-184.5-118.5q-67 74-159.5 115.5t-195.5 41.5-195.5-41.5-159.5-115.5q-119 16-184.5 118.5t-87.5 257.5q106 150 271 237.5t356 87.5 356-87.5 271-237.5zm-243-699q0-159-112.5-271.5t-271.5-112.5-271.5 112.5-112.5 271.5 112.5 271.5 271.5 112.5 271.5-112.5 112.5-271.5zm512 256q0 182-71 347.5t-190.5 286-285.5 191.5-349 71q-182 0-348-71t-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z">
-                        </path>
-                      </svg>
-                    </button>
-                  </div>
-                  <div
-                    class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
-                    <div class="py-1 " role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                      <a href="#"
-                        class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
-                        role="menuitem">
-                        <span class="flex flex-col">
-                          <span>
-                            Settings
+            <div class="block">
+              <div class="ml-4 flex items-center md:ml-6">
+                <div class="ml-3 relative">
+                  <div class="relative inline-block text-left">
+                    <div>
+                      <button type="button"
+                        class="  flex items-center justify-center w-full rounded-md  px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+                        id="options-menu">
+                        <svg width="20" fill="currentColor" height="20" class="text-gray-800" viewBox="0 0 1792 1792"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M1523 1339q-22-155-87.5-257.5t-184.5-118.5q-67 74-159.5 115.5t-195.5 41.5-195.5-41.5-159.5-115.5q-119 16-184.5 118.5t-87.5 257.5q106 150 271 237.5t356 87.5 356-87.5 271-237.5zm-243-699q0-159-112.5-271.5t-271.5-112.5-271.5 112.5-112.5 271.5 112.5 271.5 271.5 112.5 271.5-112.5 112.5-271.5zm512 256q0 182-71 347.5t-190.5 286-285.5 191.5-349 71q-182 0-348-71t-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z">
+                          </path>
+                        </svg>
+                      </button>
+                    </div>
+                    <div
+                      class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+                      <div class="py-1 " role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                        <a href="#"
+                          class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+                          role="menuitem">
+                          <span class="flex flex-col">
+                            <span>
+                              Settings
+                            </span>
                           </span>
-                        </span>
-                      </a>
-                      <a href="#"
-                        class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
-                        role="menuitem">
-                        <span class="flex flex-col">
-                          <span>
-                            <a href="/users/"></a>
-                            Account
+                        </a>
+                        <a href="#"
+                          class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+                          role="menuitem">
+                          <span class="flex flex-col">
+                            <span>
+                              <a href="/users/"></a>
+                              Account
+                            </span>
                           </span>
-                        </span>
-                      </a>
-                      <a href="#"
-                        class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
-                        role="menuitem">
-                        <span class="flex flex-col">
-                          <span>
-                            Logout
+                        </a>
+                        <a href="#"
+                          class="block block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+                          role="menuitem">
+                          <span class="flex flex-col">
+                            <span>
+                              Logout
+                            </span>
                           </span>
-                        </span>
-                      </a>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="-mr-2 flex md:hidden">
+              <button
+                class="text-gray-800 dark:text-white hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none">
+                <svg width="20" height="20" fill="currentColor" class="h-8 w-8" viewBox="0 0 1792 1792"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z">
+                  </path>
+                </svg>
+              </button>
+            </div>
           </div>
-          <div class="-mr-2 flex md:hidden">
+        </div>
+        <div class="md:hidden">
+          <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a class="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              href="/login">
+              login
+            </a>
+            <a class="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              href="/register">
+              register
+            </a>
+            <a class="text-gray-800 dark:text-white block px-3 py-2 rounded-md text-base font-medium" href="/#">
+              Gallery
+            </a>
+            <a class="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              href="/#">
+              Contact
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="w-full bg-white p-12">
+      <div class="header flex items-end justify-between mb-12">
+        <div class="title">
+          <p class="text-4xl font-bold text-gray-800 mb-4">
+            Lastest articles
+          </p>
+          <p class="text-2xl font-light text-gray-400">
+            All article are verified by 2 experts and valdiate by the CTO
+          </p>
+        </div>
+        <div class="text-end">
+          <form
+            class="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
+            <div class=" relative ">
+              <input type="text" id="&quot;form-subscribe-Search"
+                class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                placeholder="Enter a title" />
+            </div>
             <button
-              class="text-gray-800 dark:text-white hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none">
-              <svg width="20" height="20" fill="currentColor" class="h-8 w-8" viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z">
-                </path>
-              </svg>
+              class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200"
+              type="submit">
+              Search
             </button>
-          </div>
+          </form>
         </div>
       </div>
-      <div class="md:hidden">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <a class="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            href="/login">
-            login
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-12">
+        <div class="overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto">
+          <a href="#" class="w-full block h-full">
+            <img alt="blog photo" src="/img/test/1.jpg" class="max-h-40 w-full object-cover" />
+            <div class="bg-white dark:bg-gray-800 w-full p-4">
+              <p class="text-gray-800 dark:text-white text-xl font-medium mb-2">
+                Work at home
+              </p>
+              <p class="text-gray-400 dark:text-gray-300 font-light text-md">
+                Work at home, remote, is the new age of the job, every person can work at home....
+              </p>
+              <div class="flex items-center mt-4">
+                <img alt="profil" src="/img/test/person.jpg" class="mx-auto object-cover rounded-full h-10 w-10 " />
+                <div class="flex flex-col justify-between ml-4 text-sm">
+                  <p class="text-gray-800 dark:text-white">
+                    Jean Jacques
+                  </p>
+                  <p class="text-gray-400 dark:text-gray-300">
+                    20 mars 2029 - 6 min read
+                  </p>
+                </div>
+              </div>
+            </div>
           </a>
-          <a class="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            href="/register">
-            register
+        </div>
+        <div class="overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto">
+          <a href="#" class="w-full block h-full">
+            <img alt="blog photo" src="/img/test/2.jpg" class="max-h-40 w-full object-cover" />
+            <div class="bg-white dark:bg-gray-800 w-full p-4">
+              <p class="text-gray-800 dark:text-white text-xl font-medium mb-2">
+                test
+              </p>
+              <p class="text-gray-400 dark:text-gray-300 font-light text-md">
+                The new supercar is here, 543 cv and 140 000$ !!
+              </p>
+              <div class="flex items-center mt-4">
+                <img alt="profil" src="/img/test/person.jpg" class="mx-auto object-cover rounded-full h-10 w-10 " />
+                <div class="flex flex-col justify-between ml-4 text-sm">
+                  <p class="text-gray-800 dark:text-white">
+                    Jean Jacques
+                  </p>
+                  <p class="text-gray-400 dark:text-gray-300">
+                    20 mars 2029 - 6 min read
+                  </p>
+                </div>
+              </div>
+            </div>
           </a>
-          <a class="text-gray-800 dark:text-white block px-3 py-2 rounded-md text-base font-medium" href="/#">
-            Gallery
+        </div>
+        <div class="overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto">
+          <a href="#" class="w-full block h-full">
+            <img alt="blog photo" src="/img/test/3.jpg" class="max-h-40 w-full object-cover" />
+            <div class="bg-white dark:bg-gray-800 w-full p-4">
+              <p class="text-gray-800 dark:text-white text-xl font-medium mb-2">
+                test
+              </p>
+              <p class="text-gray-400 dark:text-gray-300 font-light text-md">
+                The new supercar is here, 543 cv and 140 000$ !!
+              </p>
+              <div class="flex items-center mt-4">
+                <img alt="profil" src="/img/test/person.jpg" class="mx-auto object-cover rounded-full h-10 w-10 " />
+                <div class="flex flex-col justify-between ml-4 text-sm">
+                  <p class="text-gray-800 dark:text-white">
+                    Jean Jacques
+                  </p>
+                  <p class="text-gray-400 dark:text-gray-300">
+                    20 mars 2029 - 6 min read
+                  </p>
+                </div>
+              </div>
+            </div>
           </a>
-          <a class="text-gray-300 hover:text-gray-800 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            href="/#">
-            Contact
+        </div>
+        <div class="overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto">
+          <a href="#" class="w-full block h-full">
+            <img alt="blog photo" src="/img/test/4.jpg" class="max-h-40 w-full object-cover" />
+            <div class="bg-white dark:bg-gray-800 w-full p-4">
+              <p class="text-indigo-500 text-md font-medium">
+              </p>
+              <p class="text-gray-800 dark:text-white text-xl font-medium mb-2">
+                test
+              </p>
+              <p class="text-gray-400 dark:text-gray-300 font-light text-md">
+                The new supercar is here, 543 cv and 140 000$ !!
+              </p>
+              <div class="flex items-center mt-4">
+                <img alt="profil" src="/img/test/person.jpg" class="mx-auto object-cover rounded-full h-10 w-10 " />
+                <div class="flex flex-col justify-between ml-4 text-sm">
+                  <p class="text-gray-800 dark:text-white">
+                    Jean Jacques
+                  </p>
+                  <p class="text-gray-400 dark:text-gray-300">
+                    20 mars 2029 - 6 min read
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto">
+          <a href="#" class="w-full block h-full">
+            <img alt="blog photo" src="/img/test/5.jpg" class="max-h-40 w-full object-cover" />
+            <div class="bg-white dark:bg-gray-800 w-full p-4">
+              <p class="text-indigo-500 text-md font-medium">
+              </p>
+              <p class="text-gray-800 dark:text-white text-xl font-medium mb-2">
+                test
+              </p>
+              <p class="text-gray-400 dark:text-gray-300 font-light text-md">
+                The new supercar is here, 543 cv and 140 000$ !!
+              </p>
+              <div class="flex items-center mt-4">
+                <img alt="profil" src="/img/test/person.jpg" class="mx-auto object-cover rounded-full h-10 w-10 " />
+                <div class="flex flex-col justify-between ml-4 text-sm">
+                  <p class="text-gray-800 dark:text-white">
+                    Jean Jacques
+                  </p>
+                  <p class="text-gray-400 dark:text-gray-300">
+                    20 mars 2029 - 6 min read
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto">
+          <a href="#" class="w-full block h-full">
+            <img alt="blog photo" src="/img/test/6.jpg" class="max-h-40 w-full object-cover" />
+            <div class="bg-white dark:bg-gray-800 w-full p-4">
+              <p class="text-gray-800 dark:text-white text-xl font-medium mb-2">
+                test
+              </p>
+              <p class="text-gray-400 dark:text-gray-300 font-light text-md">
+                The new supercar is here, 543 cv and 140 000$ !!
+              </p>
+              <div class="flex items-center mt-4">
+                <img alt="profil" src="/img/test/person.jpg" class="mx-auto object-cover rounded-full h-10 w-10 " />
+                <div class="flex flex-col justify-between ml-4 text-sm">
+                  <p class="text-gray-800 dark:text-white">
+                    Jean Jacques
+                  </p>
+                  <p class="text-gray-400 dark:text-gray-300">
+                    20 mars 2029 - 6 min read
+                  </p>
+                </div>
+              </div>
+            </div>
           </a>
         </div>
       </div>
-    </nav>
+    </div>
+
   </div>
 </body>
 

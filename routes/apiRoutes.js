@@ -8,6 +8,7 @@ const svgCaptcha = require("svg-captcha");
 const fs = require("fs");
 const md5 = require("md5");
 const _ = require("lodash");
+const multer = require("multer"); //multer插件
 
 // router
 //   .route("/:id")
@@ -43,23 +44,24 @@ router
 router.get("/now", (req, res, next) => {
   res.json({ time: new Date().toString() });
 });
-// /**
-//  * 访问/apple/echo,返回相应的单词
-//  */
-// router.get("/:word/echo", (req, res) => {
-//   const { word } = req.params;
-//   res.json({
-//     echo: word,
-//   });
-// });
-// /**
-//  * 接收用户所有的注册信息,包括用户名,邮箱,密码
-//  */
-// router.post("/register", (req, res) => {
-//   const userObj = _.pick(req.body, ["username", "email", "password"]);
-//   console.log(userObj);
-//   res.json({ hi: 12 });
-// });
+/**
+ * 访问/apple/echo,返回相应的单词
+ */
+router.get("/:word/echo", (req, res) => {
+  console.log(req);
+  const { word } = req.params;
+  res.json({
+    echo: word,
+  });
+});
+/**
+ * 接收用户所有的注册信息,包括用户名,邮箱,密码
+ */
+router.post("/register", (req, res) => {
+  const userObj = _.pick(req.body, ["username", "email", "password"]);
+  console.log(userObj);
+  res.json({ hi: 12 });
+});
 
 /**
  * 登录的post接口
@@ -87,4 +89,76 @@ router.get("/svg", function (req, res) {
   });
   res.type("svg").status(200).end(captcha.data);
 });
+
+/**
+ * 单文件上传功能,上传成功后,修改文件名并返回文件存储路径
+ */
+router.post(
+  "/upload",
+  multer({ dest: "./public/upload/" }).single("file"),
+  (req, res, next) => {
+    try {
+      // 原来的名字
+      const originalname = path.join(
+        process.cwd(),
+        req.file.destination,
+        req.file.originalname
+      );
+      // 存储后的名字
+      const name = path.join(process.cwd(), req.file.path);
+      fs.renameSync(name, originalname); // 重命名
+      res.json({
+        status: "scuscess",
+        message: `文件上传成功！🎉`,
+        data: originalname,
+      });
+    } catch (err) {
+      res.json({
+        status: "faild",
+        message: `文件上传失败,${err}`,
+      });
+    }
+  }
+);
+
+/**
+ * 多文件上传,并返回上传所有文件路径
+ */
+router.post(
+  "/uploads",
+  multer({ dest: "./public/upload/" }).array("file", 8), // 改成数组代表为多文件上传,10为最大数目
+  (req, res, next) => {
+    try {
+      if (!req.files.length) {
+        return res.json({
+          status: "failed",
+          message: "上传文件不能为空！",
+        });
+      }
+      // req.files : 上传的所有文件组成的数组
+      function rename(obj) {
+        const originalname = path.join(
+          process.cwd(),
+          obj.destination,
+          obj.originalname
+        );
+        // 存储后的名字
+        const name = path.join(process.cwd(), obj.path);
+        fs.renameSync(name, originalname);
+        return originalname;
+      }
+      const namesArray = req.files.map(rename); // 批量重命名
+      res.json({
+        status: "scuscess",
+        message: `多个文件上传成功！🎉`,
+        data: namesArray,
+      });
+    } catch (err) {
+      res.status(404).json({
+        status: "failed",
+        message: `上传多个文件失败！${err}`,
+      });
+    }
+  }
+);
 module.exports = router;

@@ -5,12 +5,13 @@
 const User = require("./../models/users");
 
 /**
- * 异步创建用户信息
+ * 建用户信息
  */
-
 exports.createUser = async (req, res) => {
   try {
+    console.log("-----------------------------------");
     console.log(req.body);
+    console.log("-----------------------------------");
     const newUser = await User.create(req.body);
 
     res.status(200).json({
@@ -29,15 +30,41 @@ exports.createUser = async (req, res) => {
 };
 
 /**
- * 中间件函数,每次post信息前检查是否是用户,是用户了才能继续修改信息
+ * 获取所有用户
  */
+exports.getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find();
 
-// const checkBody = (req, res, next) => {
-//   if (!req.body.name || !req.body.price) {
-//     return res.status(400).json({
-//       status: "fail",
-//       message: "错误的名称或者价格",
-//     });
-//   }
-//   next();
-// };
+    res.status(200).json({
+      status: "scuscess",
+      message: `查询所有用户成功！🎉`,
+      data: allUsers,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "failed",
+      message: `查询所有用户失败${err}`,
+    });
+  }
+};
+
+/**
+ * 根据id获取用户
+ */
+exports.getUserById = async (req, res) => {
+  try {
+    const data = await User.findById(req.params.id);
+    // 这种写法是 User.findOne({ _id: req.params.id }) 的简写
+    res.status(200).json({
+      status: "scuscess",
+      message: `查询所有用户成功！🎉`,
+      data: data,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "faild",
+      message: `用户查询失败${err}`,
+    });
+  }
+};

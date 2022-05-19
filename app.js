@@ -8,8 +8,8 @@ const bodyParser = require("body-parser");
 const path = require("path");
 
 // 各个依赖包
-// 路由文件引入
 
+// 路由文件引入
 app.use(express.static("public"));
 // 对post请求体做解析
 app.use(bodyParser.urlencoded({ extended: false }));

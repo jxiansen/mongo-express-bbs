@@ -6,13 +6,11 @@ const userController = require("./../controllers/userController");
  */
 router
   .route("/")
-  .post(userController.createUser)
-  .get((req, res) => res.send("hi"));
+  .get(userController.getAllUsers)
+  .post(userController.createUser);
 
-// router
-//   .route("/:username")
-//   .get(getUser) // 根据用户名查询信息
-//   .patch(updateUser)
-//   .delete(deleteUser);
+router.route("/:id").get(userController.getUserById); // 根据用户名查询信息
+// .patch(updateUser)
+// .delete(deleteUser);
 
 module.exports = router;

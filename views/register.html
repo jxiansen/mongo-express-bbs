@@ -6,18 +6,58 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
-  <script src="http://localhost:5000/js/tailwind.js"></script>
+  <script src="/js/tailwind.js"></script>
+  <script src="/js/axios.min.js"></script>
+  <script>
+    /**
+     * 发送页面表单注册信息
+    */
+    async function sendMessage(data) {
+      // 发送 POST 请求
+      const result = await axios
+        .post('/user', data)
+        .then(resp => resp.data).catch((error) => {
+          console.log(error);
+        });
+      console.log(result)
+      alert(`${result.message}\r 3秒后跳转到首页`)
+      if (result.status === "scuscess") {
+        window.setTimeout(window.location.href = "/", 3000);
+      }
+    }
+
+
+    /**
+     * 验证表单信息
+    */
+    function validateForm() {
+      let nodeArrs = document.querySelectorAll("input")
+      if (!nodeArrs[0].value.length) return alert("用户名不能为空！")
+      // 邮箱验证
+      const email = nodeArrs[1].value
+      const emailReg = /^[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*@([A-Za-z0-9\-]+\.)+[A-Za-z]{2,6}$/;
+      if (!emailReg.test(email)) return alert("邮箱格式不正确,请重新输入")
+      // 密码验证
+      if (!nodeArrs[2].value.length) return alert("密码不能为空")
+      // 验证成功发送数据到后台
+      const data = {
+        username: nodeArrs[0].value,
+        email: nodeArrs[1].value,
+        hashed_password: nodeArrs[2].value,
+      }
+      sendMessage(data)
+    }
+  </script>
 </head>
 
 <body>
   <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
-        <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-          alt="Workflow">
+        <img class="mx-auto h-12 w-auto" src="/img/register.svg" alt="Workflow">
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Register</h2>
       </div>
-      <form class="mt-8 space-y-6" action="/api/register" method="POST">
+      <form class="mt-8 space-y-6" method="POST">
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
             <label for="email-address" class="sr-only">Username</label>
@@ -33,14 +73,14 @@
           </div>
           <div>
             <label for="password" class="sr-only">Password</label>
-            <input id="password" name="password" type="password" autocomplete="current-password" required
+            <input id="password" name="hashed_password" type="password" autocomplete="current-password" required
               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Password">
           </div>
         </div>
 
         <div>
-          <button type="submit"
+          <button type="button" onclick="validateForm()"
             class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <!-- Heroicon name: solid/lock-closed -->

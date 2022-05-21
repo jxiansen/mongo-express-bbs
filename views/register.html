@@ -2,50 +2,100 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register</title>
-  <script src="/js/tailwind.js"></script>
-  <script src="/js/axios.min.js"></script>
+  <script src="http://localhost:5000/js/tailwind.js"></script>
   <script>
     /**
-     * 发送页面表单注册信息
-    */
-    async function sendMessage(data) {
-      // 发送 POST 请求
-      const result = await axios
-        .post('/user', data)
-        .then(resp => resp.data).catch((error) => {
-          console.log(error);
-        });
-      console.log(result)
-      alert(`${result.message}\r 3秒后跳转到首页`)
-      if (result.status === "scuscess") {
-        window.setTimeout(window.location.href = "/", 3000);
-      }
+     * 获得表单注册信息,返回其信息对象
+     */
+    function getFormData() {
+      let nodeArrs = document.querySelectorAll("input");
+      return {
+        username: nodeArrs[0].value,
+        email: nodeArrs[1].value,
+        hashed_password: nodeArrs[2].value,
+      };
+    }
+
+    /**
+     * 验证表单信息,通过返回true
+     */
+    function validateForm(info) {
+      // 用户名非空验证
+      if (!info.username.length) return alert("用户名不能为空！");
+      // 邮箱验证
+      const emailReg =
+        /^[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*@([A-Za-z0-9\-]+\.)+[A-Za-z]{2,6}$/;
+      if (!emailReg.test(info.email)) return alert("邮箱格式不正确,请重新输入");
+      if (!info.hashed_password.length) return alert("密码不能为空");
+      return true;
     }
 
 
     /**
-     * 验证表单信息
-    */
-    function validateForm() {
-      let nodeArrs = document.querySelectorAll("input")
-      if (!nodeArrs[0].value.length) return alert("用户名不能为空！")
-      // 邮箱验证
-      const email = nodeArrs[1].value
-      const emailReg = /^[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*@([A-Za-z0-9\-]+\.)+[A-Za-z]{2,6}$/;
-      if (!emailReg.test(email)) return alert("邮箱格式不正确,请重新输入")
-      // 密码验证
-      if (!nodeArrs[2].value.length) return alert("密码不能为空")
-      // 验证成功发送数据到后台
-      const data = {
-        username: nodeArrs[0].value,
-        email: nodeArrs[1].value,
-        hashed_password: nodeArrs[2].value,
+     * 上传头像,并返回头像的地址
+     */
+    async function uploadAvatar() {
+      let formData = new FormData()
+      formData.append("file", avatar.files[0])
+      const resp = await fetch("/api/upload", {
+        method: "POST",
+        body: formData
+      })
+      const json = await resp.json()
+      if (json.status === "scuscess") {
+        console.log(`头像上传成功！`)
+        const url = json.data
+        console.log(url)
+      } else {
+        console.log(`头像上传失败！`)
       }
-      sendMessage(data)
+      return json.data
+    }
+
+    /**
+    * 上传表单注册信息
+    */
+    function sendMessage(data) {
+      // 发送表单的ajax请求
+      function ajax(url, obj) {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify(obj),
+          redirect: "follow",
+        };
+        return fetch(url, requestOptions);
+      }
+      ajax("/user", data)
+        .then((data) => data.json())
+        .then((res) => {
+          if (res.status === "scuscess") {
+            alert(`${res.message}\r 3秒后跳转到首页`);
+            window.setTimeout((window.location.href = "/"), 3000);
+            return res;
+          }
+        })
+        .catch((err) => console.log(`注册失败${err}`));
+    }
+
+
+    /**
+     * 主函数
+    */
+    async function sendInfo() {
+      const dataObj = getFormData()
+      if (validateForm(dataObj)) {
+        const url = await uploadAvatar()
+        dataObj.avatar = url
+        console.log(dataObj)
+        sendMessage(dataObj)
+      }
     }
   </script>
 </head>
@@ -54,36 +104,38 @@
   <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
-        <img class="mx-auto h-12 w-auto" src="/img/register.svg" alt="Workflow">
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Register</h2>
+        <img class="mx-auto h-12 w-auto" src="/img/register.svg" alt="Workflow" />
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Register
+        </h2>
       </div>
-      <form class="mt-8 space-y-6" method="POST">
+      <form class="mt-8 space-y-6">
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
-            <label for="email-address" class="sr-only">Username</label>
             <input id="username" name="username" type="text" autocomplete="username" required
               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Username">
+              placeholder="Username" />
           </div>
           <div>
-            <label for="email-address" class="sr-only">Email address</label>
             <input id="email-address" name="email" type="email" autocomplete="email" required
               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Email address">
+              placeholder="Email address" />
           </div>
           <div>
-            <label for="password" class="sr-only">Password</label>
             <input id="password" name="hashed_password" type="password" autocomplete="current-password" required
               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Password">
+              placeholder="Password" />
+          </div>
+          <div>
+            <input type="file" name="file" id="avatar"
+              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
           </div>
         </div>
 
         <div>
-          <button type="button" onclick="validateForm()"
+          <button type="button" onclick="sendInfo()"
             class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <!-- Heroicon name: solid/lock-closed -->
               <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd"
@@ -97,7 +149,7 @@
       </form>
     </div>
   </div>
-
 </body>
+
 
 </html>

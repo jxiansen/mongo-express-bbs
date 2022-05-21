@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema(
     username: { type: String, unique: true }, // unique : 不允许重复
     email: { type: String, required: [true, "邮箱是必填项！"] },
     hashed_password: { type: String, default: "" },
+    avatar: { type: String },
   },
   { versionKey: false }
 );

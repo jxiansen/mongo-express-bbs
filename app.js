@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const indexRouter = require("./routes/indexRoutes"); // 前端页面路由
 const apiRouter = require("./routes/apiRoutes");
 const userRouter = require("./routes/userRoutes");
+const articleRouter = require("./routes/articleRoutes");
 const bodyParser = require("body-parser");
 const path = require("path");
 
@@ -33,6 +34,10 @@ app.use("/api", apiRouter);
  * users路由
  */
 app.use("/user", userRouter);
+/**
+ * article路由
+ */
+app.use("/article", articleRouter);
 
 /**
  * 404页面

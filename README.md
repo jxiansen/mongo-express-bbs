@@ -161,3 +161,22 @@ app.post(
   <input type="submit" value="上传" />
 </form>
 ```
+
+#### mongoose 中查询信息的两种方式
+
+```js
+// 第一种方法
+cosnt user = await User.find({
+  {
+    age: 12,
+    height: 180,
+  }
+})
+
+// 第二种方法
+const user = await User.find()
+  .where("age")
+  .equals(12)
+  .where("height")
+  .equals("180")
+```

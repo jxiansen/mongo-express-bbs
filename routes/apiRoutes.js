@@ -10,40 +10,16 @@ const md5 = require("md5");
 const _ = require("lodash");
 const multer = require("multer"); //multer插件
 
-// router
-//   .route("/:id")
-//   .get((req, res, next) => {
-//     console.log("hi");
-//   })
-//   .post /**中间件函数 */
-//   /**middleWareFunction */
-//   ();
-
 /**
+ * 根据查询URL，返回查询参数,参数对象放置在 req.query 中
  * 向同一个api接口发送post/get请求,req.query:来解析查询参数
- * app.route(path).get(handler).post(handler)
- * 根据查询URL，返回查询参数
  * 访问/name?first=jing&last=feng,返回{name	"firstname lastname"}
  */
-router
-  .get("/name", (req, res, next) => {
-    const { first: firstName, last: lastName } = req.query;
-    res.json({
-      name: `${firstName} ${lastName}`,
-    });
-    next();
-  })
-  .post((req, res, next) => {
-    const string = req.body.first + " " + req.body.last;
-    res.json({ name: string });
-    next();
-  });
-/**
- * 返回请求接收到时的事件
- */
-router.get("/now", (req, res, next) => {
-  res.json({ time: new Date().toString() });
+router.get("/name", (req, res) => {
+  console.log(req.query);
+  res.send("12");
 });
+
 /**
  * 访问/apple/echo,返回相应的单词
  */
@@ -66,7 +42,7 @@ router.post("/register", (req, res) => {
 /**
  * 登录的post接口
  */
-router.post("/login", (req, res) => {
+router.get("/login", (req, res) => {
   console.log(req.body);
   // const targetObj = {
   //   username: req.body.username,
@@ -109,13 +85,13 @@ router.post(
       fs.renameSync(name, originalname); // 重命名
       res.json({
         status: "scuscess",
-        message: `文件上传成功！🎉`,
-        data: originalname,
+        message: `头像上传成功！🎉`,
+        data: `http://localhost:${process.env.PORT}/upload/${req.file.originalname}`, // 返回图片的服务器地址
       });
     } catch (err) {
       res.json({
         status: "faild",
-        message: `文件上传失败,${err}`,
+        message: `头像上传失败,${err}`,
       });
     }
   }

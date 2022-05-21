@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>创建新文章</title>
+  <script src="/js/tailwind.js"></script>
+  <script>
+    /**
+     * 获得表单注册信息,返回其信息对象
+     */
+    function getFormData() {
+      let nodeArrs = document.querySelectorAll("input");
+      return {
+        username: nodeArrs[0].value,
+        email: nodeArrs[1].value,
+        hashed_password: nodeArrs[2].value,
+      };
+    }
+  </script>
+</head>
+
+<body>
+  <form>
+    <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
+      <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
+        <h1 class="text-center text-2xl font-bold text-gray-500 mb-10">创建新文章</h1>
+        <div class="space-y-4">
+          <div>
+            <label for="title" class="text-lx font-serif">标题:</label>
+            <input type="text" placeholder="title" id="title"
+              class="ml-10 outline-none py-1 px-20 text-md border-2 rounded-md" />
+          </div>
+          <div>
+            <label for="title" class="text-lx font-serif">背景图片:</label>
+            <input type="file" placeholder="title" id="backgroundImg"
+              class="ml-2 outline-none py-1 px-20 text-md border-2 rounded-md" />
+          </div>
+
+          <div>
+            <label for="description" class="block mb-2 text-lg font-serif">内容:</label>
+            <textarea id="description" cols="30" rows="10" placeholder="whrite here.."
+              class="w-full font-serif  p-4 text-gray-600 bg-indigo-50 outline-none rounded-md"></textarea>
+          </div>
+          <div>
+            <label for="name" class="text-lx font-serif">标签:</label>
+            <input type="text" placeholder="tag" id="name"
+              class="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md" />
+          </div>
+          <div class="flex justify-evenly">
+            <div>
+              <button
+                class=" px-6 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-indigo-600  ">保存</button>
+            </div>
+            <div>
+              <a href="/">
+                <button
+                  class=" px-6 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-indigo-600  ">取消</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
+
+</html>

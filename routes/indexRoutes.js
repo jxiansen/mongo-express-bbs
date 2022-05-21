@@ -23,5 +23,21 @@ router.get("/register", (req, res) => {
 router.get("/login", (req, res) => {
   res.sendFile(path.join(cwd + "/views/login.html"));
 });
+/**
+ * 文章详情页面
+ */
+router.get("/articles", (req, res) => {
+  res.sendFile(path.join(cwd + "/views/article.html"));
+});
+/**
+ * 创建新文章页面
+ */
+router.get("/articles/new", (req, res) => {
+  res.sendFile(path.join(cwd + "/views/newArticle.html"));
+});
+
+router.get("/test", (req, res) => {
+  res.sendFile(path.join(cwd + "/views/test.html"));
+});
 
 module.exports = router;
